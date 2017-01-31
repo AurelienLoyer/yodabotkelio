@@ -6,6 +6,7 @@ config.js
 # compiled output
 /dist
 /tmp
+/screen/*
 
 # dependencies
 /node_modules
