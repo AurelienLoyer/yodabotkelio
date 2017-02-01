@@ -1,41 +1,35 @@
 var events = require('events');
-var phantom = require('phantom');
+var Nightmare = require('nightmare');       
+var nightmare = Nightmare({ show: true });
+var gateau = null;
 
 module.exports = function(login, password, kelio_url) {
-	events.EventEmitter.call(this);
+
+	console.log('Kelio Bot Start');
+
 	var that = this;
-
-	phantom.create({parameters: {'cookies-file': 'cookies.txt', 'web-security': false}}, function(ph) {
-		ph.createPage(function (page) {
-		ph.createPage(function (news) {
-			initPages(page, news);
-		});
-		});
-	});
-
-	var initPages = function(page, news) {
-		page.set('onResourceReceived', function(resource) {
-		
-		});
-
-		if (url == kelio_url + '/open/login') {
-          console.log('login promt');
-          page.render('page_login.png');
-          page.evaluate(function(args) {
-            $('#j_username').val(args.login);
-            $('#j_password').val(args.password);
-            $('#btnAction').click();
-          }, function(err, title) {console.error(err);}, {
-            login: login,
-            password: password
-          });
-        } else {
-          console.log('we are logged in already');
-          //initHeroBot(account);
-        }
+	events.EventEmitter.call(this);
+	
+	this.login = function(){
+		nightmare
+			.goto(kelio_url)
+			.type('#j_username', login)
+			.type('#j_password', password)
+			.click('#btnAction')
+			.screenshot('screen/loggedIn.png')
+			.cookies.get()
+			.end()
+			.then(function(cookies) {
+				console.log(cookies);
+				gateau = cookies;
+				that.emit('connected');
+				done();
+			})
+			.catch(function(error) {
+				console.error(error);
+			});
 	}
 	
-
 
 	return this;
 }
