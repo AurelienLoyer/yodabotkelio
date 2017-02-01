@@ -5,7 +5,7 @@ var EventEmitter = require('events').EventEmitter;
 
 var accounts = config.accounts;
 var emitter = new EventEmitter();
-var args = process.argv.slice(2);
+//var args = process.argv.slice(2);
 var env = process.env;
 
 if (accounts && accounts.kelio && accounts.google) {
@@ -16,20 +16,21 @@ if (accounts && accounts.kelio && accounts.google) {
 }
 
 var bot = new hangoutsBot(accounts.google.login,accounts.google.password);
+var kelio = new kelioBot(accounts.kelio.login,accounts.kelio.password,accounts.kelio.url);
 
 bot.on('online', function() {
-    console.log('online');
-    console.log(config.to);
+    console.log('Yoda online');
     bot.sendMessage(config.to,"Remplir ton Kelio tu dois !");
 });
 
 bot.on('message', function(from, message) {
     console.log(from);
     console.log(message);
+    kelio.getGateau();
 });
-
-var kelio = new kelioBot(accounts.kelio.login,accounts.kelio.password,accounts.kelio.url);
 
 kelio.on('connected', () => {
     console.log('Kelio connected');
 });
+
+kelio.login();
