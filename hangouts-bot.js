@@ -58,6 +58,9 @@ module.exports = function(username, password, onlineStatus) {
 	});
 
 	this.sendMessage = function(to, message) {
+		console.log('HG : '+message);
+		return;
+		
 		var stanza = new Element('message',
 			{
 				to: to,
