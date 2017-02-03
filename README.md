@@ -12,5 +12,5 @@ Yoda Hangouts Bot For Kelio CRA
 
 # Preview
 
-[Preview img](img/screen_1.png)
-[Preview img](img/screen_2.png)
+![Preview Hangouts](img/screen_1.png)
+![Preview favorite](img/screen_2.png)
