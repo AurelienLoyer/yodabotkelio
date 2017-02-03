@@ -13,5 +13,5 @@ module.exports = {
             "url" : "http://toto.bodet-software.com"
         }
     },
-    to : "aurelien.loyer@zenika.com"
+    to : "yourgmail@toto.com"
 }
