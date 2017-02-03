@@ -32,11 +32,12 @@ bot.on('message', function(from, message) {
     console.log(message);
     if(value_2_set){
       var prc = parseInt(message);
-      if(prc && prc <= 100 && prc >= 1)
+      if(prc && prc <= 100 && prc >= 1){
         value_2_set.value = prc;
         value_total += prc;
         kelio.setClientValue(value_2_set);
-      else{
+        bot.sendMessage(config.to,"Renseigner "+prc+"% pour '"+clients_list[value_2_set.client_id]+"' je vais.");
+      }else{
         bot.sendMessage(config.to,"Me berner tu essaies ?");
         bot.sendMessage(config.to,"Le pourcentage pour '"+clients_list[value_2_set.client_id]+"' me dire tu dois.");
       }
@@ -69,10 +70,9 @@ function switch_message(message){
       case '2':
       case '3':
       case '4':
-          value_2_set = {
-            "client_id" : message
-            "value" : null
-          }
+          value_2_set = {};
+          value_2_set["client_id"] = message;
+          value_2_set["value"] = null;
           bot.sendMessage(config.to,"Le pourcentage pour '"+clients_list[value_2_set.client_id]+"' me dire tu dois.");
           break;
       case 'gateau':

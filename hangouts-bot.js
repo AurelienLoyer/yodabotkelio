@@ -21,7 +21,7 @@ module.exports = function(username, password, onlineStatus) {
 			.c('status')
 			.t(onlineStatus || 'Online')
 		);
-		
+
 		var roster_elem = new Element('iq', {
 			'from': connection.jid,
 			'type': 'get',
@@ -58,8 +58,8 @@ module.exports = function(username, password, onlineStatus) {
 	});
 
 	this.sendMessage = function(to, message) {
-		console.log('HG : '+message);
-		return;
+		//console.log('HG : '+message);
+		//return;
 		
 		var stanza = new Element('message',
 			{
