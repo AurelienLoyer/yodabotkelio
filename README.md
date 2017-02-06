@@ -1,11 +1,13 @@
-# yodabotkelio
+# YodaBotKelio
 
 Yoda Hangouts Bot For Kelio CRA
+You can set one by one client percentage
 
 # Config
 
 - Rename config.model.js -> config.js
 - Replace your Kelio / Hangouts account in the config.js file
+- to paramater is somethink like (ddsqdkqsd4567DKLS@public.talk.google.com)
 - Select yours clients as favorite on Kelio to save the list (see preview 2)
 - May the force be with you !
 - Enjoy !
