@@ -37,11 +37,9 @@ bot.on('message', function(from, message) {
     console.log(message);
     if(value_2_set){
       var prc = parseInt(message);
-      console.log(prc);
       if(prc && prc <= 100 && prc >= 1 && value_total+prc <= 100){
         value_2_set.value = prc;
         value_total += prc;
-        console.log(value_total);
         kelio.setClientValue(value_2_set);
         bot.sendMessage(config.to,"Renseigner "+prc+"% pour '"+clients_list[value_2_set.client_id]+"' je vais.");
       }else{
@@ -127,6 +125,12 @@ function switch_message(message){
           bot.sendMessage(config.to,"Choisir ton client du dois !");
           break;
 
+      case 'exit':
+          bot.sendMessage(config.to,"Que la force soit avec toi !");
+          setTimeout(() => {
+            process.exit();
+          }, 3000);
+          break;
       default:
           break;
   }
