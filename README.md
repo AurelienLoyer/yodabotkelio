@@ -13,7 +13,19 @@ You can set one by one client percentage
 - May the force be with you !
 - Enjoy !
 
+# AutoLoad
+
+## MAC OSX
+
+## Windows
+
+## Linux
+
+# Chat Option
+
+exit -> Stop the process
+
 # Preview
 
-![Preview Hangouts](img/screen_1.png=250x)
-![Preview favorite](img/screen_2.png=250x)
+![Preview Hangouts](img/screen_1.png)
+![Preview favorite](img/screen_2.png)
