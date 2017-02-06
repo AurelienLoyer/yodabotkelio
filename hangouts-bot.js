@@ -39,6 +39,7 @@ module.exports = function(username, password, onlineStatus) {
 
 	this.connection.on('stanza', function(stanza) {
 		if (stanza.is('message') && (stanza.attrs.type !== 'error') && (stanza.getChildText('body'))) {
+			console.log(stanza.attrs.from);
 			that.emit('message',
 				stanza.attrs.from,
 				stanza.getChildText('body')
@@ -60,7 +61,7 @@ module.exports = function(username, password, onlineStatus) {
 	this.sendMessage = function(to, message) {
 		//console.log('HG : '+message);
 		//return;
-		
+
 		var stanza = new Element('message',
 			{
 				to: to,

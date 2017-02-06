@@ -18,6 +18,11 @@ if (accounts && accounts.kelio && accounts.google) {
     process.exit();
 }
 
+if(config.workdays.indexOf(new Date().getDay() - 1) == -1){
+  console.log("Je ne travails pas aujourd'hui !");
+  process.exit();
+}
+
 var bot = new hangoutsBot(accounts.google.login,accounts.google.password);
 var kelio = new kelioBot(accounts.kelio.login,accounts.kelio.password,accounts.kelio.url);
 
@@ -32,9 +37,11 @@ bot.on('message', function(from, message) {
     console.log(message);
     if(value_2_set){
       var prc = parseInt(message);
-      if(prc && prc <= 100 && prc >= 1){
+      console.log(prc);
+      if(prc && prc <= 100 && prc >= 1 && value_total+prc <= 100){
         value_2_set.value = prc;
         value_total += prc;
+        console.log(value_total);
         kelio.setClientValue(value_2_set);
         bot.sendMessage(config.to,"Renseigner "+prc+"% pour '"+clients_list[value_2_set.client_id]+"' je vais.");
       }else{
@@ -55,21 +62,32 @@ kelio.on('clients', (clients) => {
 kelio.on('clientSet', (client) => {
   bot.sendMessage(config.to,"Pourcentage pour '"+clients_list[client.client_id]+"' mis à jour !");
   if(value_total == 100){
-    bot.sendMessage(config.to,"Cela fait 100% ! Bonne journée !");
-    bot.sendMessage(config.to,"Que la force soit avec toi !");
-    process.exit();
+    finish();
   }else{
-    bot.sendMessage(config.to,"Cela ne fait pas 100%");
+    bot.sendMessage(config.to,"Cela ne fait pas 100%.");
     value_2_set = null;
     list_clients();
   }
 });
 
-kelio.on('connected', () => {
+kelio.on('connected', (addition) => {
     console.log('Yoda connected to Kelio');
+    console.log(addition);
     bot.sendMessage(config.to,'Connecter je me suis !');
-    kelio.getClients();
+    if(addition < 100)
+      kelio.getClients();
+    else
+      finish();
 });
+
+function finish(){
+  bot.sendMessage(config.to,"Cela fait 100% !");
+  bot.sendMessage(config.to,"Que la force soit avec toi !");
+  setTimeout(() => {
+    process.exit();
+  }, 3000)
+
+}
 
 function list_clients(){
   var message_clients = "";

@@ -13,5 +13,16 @@ module.exports = {
             "url" : "http://toto.bodet-software.com"
         }
     },
-    to : "yourgmail@toto.com"
+
+    // Hangout message to contact, maybe you ?
+    to : "dsqdksqkdmqs4567890@public.talk.google.com",
+
+    // Working day Monday = 0 :)
+    workdays : [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
 }

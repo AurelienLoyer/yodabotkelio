@@ -2,6 +2,7 @@ var events = require('events');
 var Nightmare = require('nightmare');
 var nightmare = Nightmare();
 var gateau = null;
+var addition = 0;
 
 module.exports = function(login, password, kelio_url) {
 
@@ -24,11 +25,14 @@ module.exports = function(login, password, kelio_url) {
 	this.login = function(){
 		this.kelio()
 			.screenshot('screen/2_after_loggedIn.png')
-			.cookies.get()
 			.end()
-			.then(function(cookies) {
-				gateau = cookies;
-				that.emit('connected');
+			.evaluate((today) => {
+				return document.getElementById("addition_"+today).innerText.replace('%','')
+			},that.getCurrentDate())
+			.then(function(add) {
+				//addition_20170206
+				addition = parseInt(add);
+				that.emit('connected',addition);
 			})
 			.catch(function(error) {
 				console.error(error);
@@ -38,7 +42,6 @@ module.exports = function(login, password, kelio_url) {
 	this.getGateau = function(){
 		return gateau;
 	}
-
 
 	this.getClients = function(){
 
@@ -79,6 +82,21 @@ module.exports = function(login, password, kelio_url) {
 				that.emit('clientSet',client);
 			});
 
+	}
+
+	this.getCurrentDate = function(){
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+
+		var yyyy = today.getFullYear();
+		if(dd<10){
+		    dd='0'+dd;
+		}
+		if(mm<10){
+		    mm='0'+mm;
+		}
+		return yyyy+mm+dd;
 	}
 
 	return this;
