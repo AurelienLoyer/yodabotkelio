@@ -132,6 +132,11 @@ function switch_message(message){
           }, 3000);
           break;
       default:
+          bot.sendMessage(config.to,"Le côté obscur de la Force, redouter tu dois.");
+          setTimeout(() => {
+            value_2_set = null;
+            kelio.getClients();
+          }, 1000);
           break;
   }
 }

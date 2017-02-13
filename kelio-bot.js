@@ -15,7 +15,7 @@ module.exports = function(login, password, kelio_url) {
 	this.kelio = function(){
 		return Nightmare({ show: false })
 		.goto(kelio_url)
-		.screenshot('screen/1_logginPage.png')
+		//.screenshot('screen/1_logginPage.png')
 		.type('#j_username', login)
 		.type('#j_password', password)
 		.click('#btnAction')
@@ -24,7 +24,7 @@ module.exports = function(login, password, kelio_url) {
 
 	this.login = function(){
 		this.kelio()
-			.screenshot('screen/2_after_loggedIn.png')
+			//.screenshot('screen/2_after_loggedIn.png')
 			.end()
 			.evaluate((today) => {
 				return document.getElementById("addition_"+today).innerText.replace('%','')
@@ -47,7 +47,7 @@ module.exports = function(login, password, kelio_url) {
 
 		this.kelio()
 			.wait(2000)
-			.screenshot('screen/3_afterCookiesSet.png')
+			//.screenshot('screen/3_afterCookiesSet.png')
 			.evaluate(() => {
 				var clients = [];
 				var result = {};
